@@ -11,8 +11,10 @@ type Item = {
 // Functional component to display item count
 function ItemCount({ count, name }: { count: number; name: string }) {
   return (
-    <div key={name}>
-      {name} count: {count}
+    <div key={name} className={styles.itemCount}>
+      <div>
+        {name} count: {count}
+      </div>
     </div>
   );
 }
