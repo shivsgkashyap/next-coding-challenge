@@ -1,7 +1,7 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   padding: 6rem;
   min-height: 100vh;
@@ -9,7 +9,7 @@
 
 .description {
   display: inherit;
-  justify-content: inherit;
+  justify-content: space-between;
   align-items: inherit;
   font-size: 0.85rem;
   max-width: var(--max-width);
@@ -39,6 +39,7 @@
   grid-template-columns: repeat(4, minmax(25%, auto));
   max-width: 100%;
   width: var(--max-width);
+  margin-top: 4rem;
 }
 
 .basket,
@@ -71,6 +72,11 @@
   max-width: 30ch;
 }
 
+.itemCount {
+  display: flex;
+  justify-content: center;
+}
+
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   .basket:hover,
@@ -97,10 +103,13 @@
   }
 
   .grid {
-    /* TODO Look up how to make a single column list*/
+    /* Make a single column list */
+    grid-template-columns: 1fr;
+    gap: 1rem; /* Adjust as needed for spacing between items */
     margin-bottom: 120px;
     max-width: 320px;
     text-align: center;
+    margin-top: 0;
   }
 
   .basket,
@@ -162,6 +171,9 @@
 /* Tablet and Smaller Desktop */
 @media (min-width: 701px) and (max-width: 1120px) {
   .grid {
-    /* TODO Look up how to make a 2 column list*/
+    /* Make a 2-column list */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem; /* Adjust as needed for spacing between items */
+    margin-top: 2rem;
   }
 }
