@@ -78,4 +78,33 @@ describe("Home", () => {
 
     expect(itemCount).toBeVisible();
   });
+
+  it("displays correct counts for all items when they are added", async () => {
+    render(<Home />);
+
+    const buttons = screen.getAllByRole("button", {
+      name: /Add to basket/i,
+    });
+
+    await userEvent.click(buttons[0]);
+    await userEvent.click(buttons[1]);
+    await userEvent.click(buttons[2]);
+    await userEvent.click(buttons[3]);
+
+    const basketButton = screen.getByRole("button", {
+      name: /Basket:/i,
+    });
+
+    expect(basketButton).toHaveTextContent("Basket: 4 items");
+
+    const itemCount1 = screen.getByText("Item 1 count: 1");
+    const itemCount2 = screen.getByText("Item 2 count: 1");
+    const itemCount3 = screen.getByText("Item 3 count: 1");
+    const itemCount4 = screen.getByText("Item 4 count: 1");
+
+    expect(itemCount1).toBeVisible();
+    expect(itemCount2).toBeVisible();
+    expect(itemCount3).toBeVisible();
+    expect(itemCount4).toBeVisible();
+  });
 });
