@@ -47,14 +47,12 @@ export default function Home() {
   // Callback function to add items to the cart
   const addToCart = useCallback((product: string) => {
     setItems((prevItems) => {
-      const existingItem = prevItems.find((item) => item.name === product);
-      if (existingItem) {
+      const index = prevItems.findIndex((item) => item.name === product);
+      if (index !== -1) {
         // Update quantity if item already exists
-        return prevItems.map((item) =>
-          item.name === product
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
+        const updatedItems = [...prevItems];
+        updatedItems[index].quantity += 1;
+        return updatedItems;
       }
       // Add new item if it doesn't exist
       return [...prevItems, { name: product, quantity: 1 }];
