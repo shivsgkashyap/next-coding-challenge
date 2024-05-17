@@ -17,6 +17,26 @@ function ItemCount({ count, name }: { count: number; name: string }) {
   );
 }
 
+// Array of items
+const ItemsList = [
+  {
+    id: "Item 1",
+    name: "Foo",
+  },
+  {
+    id: "Item 2",
+    name: "Bar",
+  },
+  {
+    id: "Item 3",
+    name: "Baz",
+  },
+  {
+    id: "Item 4",
+    name: "Qux",
+  },
+];
+
 export default function Home() {
   // State to manage items in the cart
   const [items, setItems] = useState<Item[]>([]);
@@ -47,66 +67,34 @@ export default function Home() {
         <p>Michael&apos;s Amazing Web Store</p>
         <div>
           <button className={styles.basket}>Basket: {itemCount} items</button>
-          <ItemCount
-            name="Item 1"
-            count={items.find((item) => item.name === "Item 1")?.quantity || 0}
-          />
-          <ItemCount
-            name="Item 2"
-            count={items.find((item) => item.name === "Item 2")?.quantity || 0}
-          />
-          <ItemCount
-            name="Item 3"
-            count={items.find((item) => item.name === "Item 3")?.quantity || 0}
-          />
-          <ItemCount
-            name="Item 4"
-            count={items.find((item) => item.name === "Item 4")?.quantity || 0}
-          />
+          {ItemsList.map((itemList) => (
+            <ItemCount
+              name={itemList.id}
+              count={
+                items.find((item) => item.name === itemList.id)?.quantity || 0
+              }
+              key={itemList.id}
+            />
+          ))}
         </div>
       </div>
 
       <div className={styles.grid}>
-        <button
-          className={styles.card}
-          onClick={() => addToCart("Item 1")}
-          aria-label="Add to basket"
-        >
-          <h2>
-            Item 1 <span>-&gt;</span>
-          </h2>
-          <p>Foo</p>
-        </button>
-        <button
-          className={styles.card}
-          onClick={() => addToCart("Item 2")}
-          aria-label="Add to basket"
-        >
-          <h2>
-            Item 2 <span>-&gt;</span>
-          </h2>
-          <p>Bar</p>
-        </button>
-        <button
-          className={styles.card}
-          onClick={() => addToCart("Item 3")}
-          aria-label="Add to basket"
-        >
-          <h2>
-            Item 3 <span>-&gt;</span>
-          </h2>
-          <p>Baz</p>
-        </button>
-        <button
-          className={styles.card}
-          onClick={() => addToCart("Item 4")}
-          aria-label="Add to basket"
-        >
-          <h2>
-            Item 4 <span>-&gt;</span>
-          </h2>
-          <p>Qux</p>
-        </button>
+        {ItemsList.map((itemList) => {
+          return (
+            <button
+              className={styles.card}
+              onClick={() => addToCart(itemList.id)}
+              aria-label="Add to basket"
+              key={itemList.id}
+            >
+              <h2>
+                {itemList.id} <span>-&gt;</span>
+              </h2>
+              <p>{itemList.name}</p>
+            </button>
+          );
+        })}
       </div>
     </main>
   );
