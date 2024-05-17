@@ -57,4 +57,25 @@ describe("Home", () => {
     expect(itemCount1).toBeVisible();
     expect(itemCount2).toBeVisible();
   });
+
+  it("updates the item count correctly when the same item is added multiple times", async () => {
+    render(<Home />);
+
+    const buttons = screen.getAllByRole("button", {
+      name: /Add to basket/i,
+    });
+
+    await userEvent.click(buttons[0]);
+    await userEvent.click(buttons[0]);
+
+    const basketButton = screen.getByRole("button", {
+      name: /Basket:/i,
+    });
+
+    expect(basketButton).toHaveTextContent("Basket: 2 items");
+
+    const itemCount = screen.getByText("Item 1 count: 2");
+
+    expect(itemCount).toBeVisible();
+  });
 });
