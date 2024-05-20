@@ -1,43 +1,15 @@
 "use client";
 import { useState, useCallback } from "react";
 import styles from "./page.module.css";
+import { ItemsList } from "./data/itemsList";
+import ItemCount from "./components/item-count/ItemCount";
+import Card from "./components/card/Card";
 
 // Define a type for items in the cart
 type Item = {
   name: string;
   quantity: number;
 };
-
-// Functional component to display item count
-function ItemCount({ count, name }: { count: number; name: string }) {
-  return (
-    <div key={name} className={styles.itemCount}>
-      <div>
-        {name} count: {count}
-      </div>
-    </div>
-  );
-}
-
-// Array of items
-const ItemsList = [
-  {
-    id: "Item 1",
-    name: "Foo",
-  },
-  {
-    id: "Item 2",
-    name: "Bar",
-  },
-  {
-    id: "Item 3",
-    name: "Baz",
-  },
-  {
-    id: "Item 4",
-    name: "Qux",
-  },
-];
 
 export default function Home() {
   // State to manage items in the cart
@@ -49,11 +21,11 @@ export default function Home() {
   // Callback function to add items to the cart
   const addToCart = useCallback((product: string) => {
     setItems((prevItems) => {
-      const index = prevItems.findIndex((item) => item.name === product);
-      if (index !== -1) {
+      const itemIndex = prevItems.findIndex((item) => item.name === product);
+      if (itemIndex !== -1) {
         // Update quantity if item already exists
         const updatedItems = [...prevItems];
-        updatedItems[index].quantity += 1;
+        updatedItems[itemIndex].quantity += 1;
         return updatedItems;
       }
       // Add new item if it doesn't exist
@@ -63,39 +35,39 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>Michael&apos;s Amazing Web Store</p>
+      <section className={styles.description}>
+        <h1>Michael&apos;s Amazing Web Store</h1>
         <div>
-          <button className={styles.basket}>Basket: {itemCount} items</button>
+          <button className={styles.basket}>
+            Basket: {itemCount}
+            {` item${itemCount !== 1 ? "s" : ""}`}
+          </button>
+          <ul>
+            {ItemsList.map((itemList) => (
+              <ItemCount
+                name={itemList.id}
+                count={
+                  items.find((item) => item.name === itemList.id)?.quantity || 0
+                }
+                key={itemList.id}
+              />
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className={styles.gridContainer}>
+        <ul className={styles.grid}>
           {ItemsList.map((itemList) => (
-            <ItemCount
-              name={itemList.id}
-              count={
-                items.find((item) => item.name === itemList.id)?.quantity || 0
-              }
+            <Card
               key={itemList.id}
+              id={itemList.id}
+              name={itemList.name}
+              onAddToCart={addToCart}
             />
           ))}
-        </div>
-      </div>
-
-      <div className={styles.grid}>
-        {ItemsList.map((itemList) => {
-          return (
-            <button
-              className={styles.card}
-              onClick={() => addToCart(itemList.id)}
-              aria-label="Add to basket"
-              key={itemList.id}
-            >
-              <h2>
-                {itemList.id} <span>-&gt;</span>
-              </h2>
-              <p>{itemList.name}</p>
-            </button>
-          );
-        })}
-      </div>
+        </ul>
+      </section>
     </main>
   );
 }

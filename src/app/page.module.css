@@ -1,7 +1,6 @@
 .main {
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
   align-items: center;
   padding: 6rem;
   min-height: 100vh;
@@ -18,20 +17,26 @@
   font-family: var(--font-mono);
 }
 
-.description a {
+.description button {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
 }
 
-.description p {
+.description h1 {
   position: relative;
   margin: 0;
   padding: 1rem;
   background-color: rgba(var(--callout-rgb), 0.5);
   border: 1px solid rgba(var(--callout-border-rgb), 0.3);
   border-radius: var(--border-radius);
+}
+
+.gridContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .grid {
@@ -42,8 +47,7 @@
   margin-top: 4rem;
 }
 
-.basket,
-.card {
+.basket {
   cursor: pointer;
   padding: 1rem 1.2rem;
   border-radius: var(--border-radius);
@@ -54,45 +58,11 @@
   transition: background 200ms, border 200ms;
 }
 
-.card span {
-  display: inline-block;
-  transition: transform 200ms;
-}
-
-.card h2 {
-  font-weight: 600;
-  margin-bottom: 0.7rem;
-}
-
-.card p {
-  margin: 0;
-  opacity: 0.6;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  max-width: 30ch;
-}
-
-.itemCount {
-  display: flex;
-  justify-content: center;
-}
-
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
-  .basket:hover,
-  .card:hover {
+  .basket:hover {
     background: rgba(var(--card-rgb), 0.1);
     border: 1px solid rgba(var(--card-border-rgb), 0.15);
-  }
-
-  .card:hover span {
-    transform: translateX(4px);
-  }
-}
-
-@media (prefers-reduced-motion) {
-  .card:hover span {
-    transform: none;
   }
 }
 
@@ -109,27 +79,22 @@
     margin-bottom: 120px;
     max-width: 320px;
     text-align: center;
-    margin-top: 0;
+    margin-top: 2rem;
   }
 
-  .basket,
-  .card {
+  .basket {
     padding: 1rem 2.5rem;
-  }
-
-  .card h2 {
-    margin-bottom: 0.5rem;
   }
 
   .description {
     font-size: 0.8rem;
   }
 
-  .description a {
+  .description button {
     padding: 1rem;
   }
 
-  .description p,
+  .description h1,
   .description div {
     display: flex;
     justify-content: center;
@@ -137,7 +102,7 @@
     width: 100%;
   }
 
-  .description p {
+  .description h1 {
     align-items: center;
     inset: 0 0 auto;
     padding: 2rem 1rem 1.4rem;
@@ -154,7 +119,8 @@
   }
 
   .description div {
-    align-items: flex-end;
+    flex-direction: column;
+    align-items: center;
     pointer-events: none;
     inset: auto 0 0;
     padding: 2rem;
@@ -174,6 +140,5 @@
     /* Make a 2-column list */
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem; /* Adjust as needed for spacing between items */
-    margin-top: 2rem;
   }
 }
