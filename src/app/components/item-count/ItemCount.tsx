@@ -8,9 +8,7 @@ type ItemCountProps = {
 const ItemCount = ({ count, name }: ItemCountProps) => {
   return (
     <li key={name} className={styles.itemCount}>
-      <a>
-        {name} count: {count}
-      </a>
+      {name} count: {count}
     </li>
   );
 };

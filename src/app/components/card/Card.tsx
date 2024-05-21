@@ -6,7 +6,7 @@ type CardProps = {
   onAddToCart: (product: string) => void;
 };
 
-export default function Card({ id, name, onAddToCart }: CardProps) {
+const Card = ({ id, name, onAddToCart }: CardProps) => {
   return (
     <li>
       <button
@@ -21,4 +21,6 @@ export default function Card({ id, name, onAddToCart }: CardProps) {
       </button>
     </li>
   );
-}
+};
+
+export default Card;
